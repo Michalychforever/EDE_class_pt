@@ -1056,6 +1056,7 @@ int perturb_indices_of_perturbs(
         ppt->has_source_delta_m = _TRUE_;
         ppt->has_source_delta_cdm = _TRUE_;
         ppt->has_source_delta_b = _TRUE_;
+        ppt->has_source_delta_cb = _TRUE_;
         //  printf("Working!>>>>>>>>>>>>>\n");
     }
 
