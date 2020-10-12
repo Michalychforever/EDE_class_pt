@@ -2448,6 +2448,7 @@ int background_derivs(
   struct background_parameters_and_workspace * pbpaw;
   struct background * pba;
   double * pvecback, a, H, rho_M;
+  int n_ncdm;
 
   pbpaw = parameters_and_workspace;
   pba =  pbpaw->pba;
@@ -2479,6 +2480,14 @@ int background_derivs(
   rho_M = pvecback[pba->index_bg_rho_b];
   if (pba->has_cdm)
     rho_M += pvecback[pba->index_bg_rho_cdm];
+  if (pba->has_dcdm)
+    rho_M += pvecback[pba->index_bg_rho_dcdm];
+  if (pba->has_ncdm == _TRUE_ && pba->has_cb == _FALSE_) {
+    /* Loop over species: */
+    for(n_ncdm=0; n_ncdm<pba->N_ncdm; n_ncdm++){
+      rho_M += pvecback[pba->index_bg_rho_ncdm1+n_ncdm];
+    }
+  }
   dy[pba->index_bi_D] = y[pba->index_bi_D_prime];
   dy[pba->index_bi_D_prime] = -a*H*y[pba->index_bi_D_prime] + 1.5*a*a*rho_M*y[pba->index_bi_D];
 
